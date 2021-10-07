@@ -5,16 +5,13 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <!-- css -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <link rel="stylesheet"
+            href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
-        <!-- /css -->
-        <!-- js -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
-        <!-- /js -->
+        <script
+            src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
         <title>Busca Colaborador</title>
 
         <style>
@@ -46,7 +43,7 @@
             display: none;
         }
         .table-response{
-            display: none;
+            display: block;
             
         }
         .td-btn-options{
@@ -146,7 +143,7 @@
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label>CPF</label>
-                                    <input class="form-control text-uppercase cpf" type="text" name="CPFCNPJ" maxlength="20" />
+                                    <input class="form-control text-uppercase cpfcnpj" type="text" name="CPFCNPJ" maxlength="20" />
                                 </div>
                             </div>
                             <div class="col-sm-4">
@@ -177,90 +174,54 @@
                 </div>
                 <br>
                 <!-- /Filters -->
-                <!-- /List results -->
+                <!-- List results -->
                 <div >
-                    
-                        <div class="row d-flex justify-content-center">
-                            <div  id="spinner" class="spinner-border text-success spinner"></div>
-                        </div>
-                   
+                    <!-- spinner -->
+                    <div class="row d-flex justify-content-center">
+                        <div  id="spinner" class="spinner-border text-success spinner"></div>
+                    </div>
+                    <!-- /spinner -->
+                    <!-- table -->
                     <div id="table-response" class="row table-response">
-                        <div class="col-sm-12">
-                            <table class="table table-striped">
-                                <thead>
-                                  <tr>
-                                    <th>Nome</th>
-                                    <th>Idade</th>
-                                    <th>Email</th>
-                                    <th class="col-sm-3 col-md-2"></th>
-                                  </tr>
-                                </thead>
-                                <tbody>
-                                  <tr>
-                                    <td>John</td>
-                                    <td>36</td>
-                                    <td>john@example.com</td>
-                                    <td class="float-right td-default"><a href="#" class="btn btn-primary btn-sm" title="Editar"><i class="fas fas fa-edit"></i></a><a href="#" class="btn btn-danger btn-sm btn-delete" title="Excluir"><i class="fas fa-trash"></i></a></td>
-                                    <td class="float-right td-btn-options">
-                                        <div class="btn-group">
-                                            <button type="button" class="btn btn-primary dropdown-toggle btn-sm" data-toggle="dropdown">
-                                                <i class="fa fa-bars"></i>
-                                            </button>
-                                            <div class="dropdown-menu">
-                                                <a class="dropdown-item" href="#"><i class="fas fas fa-edit"></i> <span style="padding-left: .2em;">Ver</span> </a>
-                                                <a class="dropdown-item" href="#"><i class="fas fa-trash"></i> <span style="padding-left: .3em;">Excluir</span></a>
-                                            </div>
-                                      </div>
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <td>Mary</td>
-                                    <td>25</td>
-                                    <td>mary@example.com</td>
-                                    <td class="float-right td-default"><a href="#" class="btn btn-primary btn-sm" title="Editar"><i class="fas fas fa-edit"></i></a><a href="#" class="btn btn-danger btn-sm btn-delete" title="Excluir"><i class="fas fa-trash"></i></a></td>
-                                    <td class="float-right td-btn-options">
-                                        <div class="btn-group">
-                                            <button type="button" class="btn btn-primary dropdown-toggle btn-sm" data-toggle="dropdown">
-                                                <i class="fa fa-bars"></i>
-                                            </button>
-                                            <div class="dropdown-menu">
-                                                <a class="dropdown-item" href="#"><i class="fas fas fa-edit"></i> <span style="padding-left: .2em;">Ver</span> </a>
-                                                <a class="dropdown-item" href="#"><i class="fas fa-trash"></i> <span style="padding-left: .3em;">Excluir</span></a>
-                                            </div>
-                                      </div>
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <td>July</td>
-                                    <td>19</td>
-                                    <td>july@example.com</td>
-                                    <td class="float-right td-default"><a href="#" class="btn btn-primary btn-sm" title="Editar"><i class="fas fas fa-edit"></i></a><a href="#" class="btn btn-danger btn-sm btn-delete" title="Excluir"><i class="fas fa-trash"></i></a></td>
-                                    <td class="float-right td-btn-options">
-                                        <div class="btn-group">
-                                            <button type="button" class="btn btn-primary dropdown-toggle btn-sm" data-toggle="dropdown">
-                                                <i class="fa fa-bars"></i>
-                                            </button>
-                                            <div class="dropdown-menu">
-                                                <a class="dropdown-item" href="#"><i class="fas fas fa-edit"></i> <span style="padding-left: .2em;">Ver</span> </a>
-                                                <a class="dropdown-item" href="#"><i class="fas fa-trash"></i> <span style="padding-left: .3em;">Excluir</span></a>
-                                            </div>
-                                      </div>
-                                    </td>
-                                  </tr>
-                                </tbody>
-                              </table>
+                        <div class="row">
+                            <div class="table-responsive-sm col-sm-12">
+                                <table class="table table-striped ">
+                                    <thead>
+                                        <tr>
+                                          <th>Nome</th>
+                                          <th>Idade</th>
+                                          <th>Email</th>
+                                          <th ></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>John</td>
+                                            <td>36</td>
+                                            <td>john@example.com</td>
+                                            <td class="float-right td-default"><a href="#" class="btn btn-primary btn-sm" title="Editar"><i class="fas fas fa-edit"></i></a><a href="#" class="btn btn-danger btn-sm btn-delete" title="Excluir"><i class="fas fa-trash"></i></a></td>
+                                            <td class="float-right td-btn-options">
+                                                <div class="btn-group">
+                                                    <button type="button" class="btn btn-primary dropdown-toggle btn-sm" data-toggle="dropdown">
+                                                        <i class="fa fa-bars"></i>
+                                                    </button>
+                                                    <div class="dropdown-menu">
+                                                        <a class="dropdown-item" href="#"><i class="fas fas fa-edit"></i> <span style="padding-left: .2em;">Ver</span> </a>
+                                                        <a class="dropdown-item" href="#"><i class="fas fa-trash"></i> <span style="padding-left: .3em;">Excluir</span></a>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
-                    </div>          
-                  </div>
+                    </div>
+                </div>
+            </div>
         </form>
     </body>
     <script type="text/javascript">
-
-        $(document).ready(function(){
-           
-            $(".cpf").mask('000.000.000-00');
-            
-        });
     
         function search(){
             var spinner = document.querySelector("#spinner");
