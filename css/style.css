@@ -558,13 +558,13 @@ body a:hover{
 }
 .icon-banner-case{
 	width: 10em; 
-	margin-left: 3.5em;
+	margin: 0 auto;
 }
 .btn-banner-case{
-	margin-top: 1.5em;
+	margin-top: 3em;
 }
 .background-case{
-	height: 193px;
+	height: 51%;
 }
 .background-case1{
 	background-image: url('../images/agrobov.png'); 
@@ -577,10 +577,188 @@ body a:hover{
 	background-size: cover; 
 }
 
+/* client */
+
+
+.clients > .flexslider {
+	position: relative;
+}
+
+.clients >.flex-viewport {
+	height: 410px;
+}
+.clients {
+	background: url("../images/clients.jpg");
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-position: center;
+	background-size: cover;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	padding: 100px 0;
+}
+
+.clients h3 {
+	font-size: 45px;
+	font-weight: 700;
+	margin-bottom: 50px;
+	color: #FFF;
+}
+.client-info h4 {
+	font-size: 30px;
+	color: #FFF;
+	font-weight: 600;
+	margin-bottom: 20px;
+}
+.client-info p {
+	font-family: 'Raleway', sans-serif;
+	font-size: 17px;
+	font-weight: 100;
+	line-height: 30px;
+	text-align: center;
+	
+	color: #FFF;
+}
+
+.client-image {
+	text-align: center;
+	margin-top: 30px;
+}
+
+.client-image img {
+	width: 175px !important;
+	border-radius: 50%;
+	margin: 0 auto;
+}
+
+.client-image h5 {
+	font-size: 24px;
+	color: #FFF;
+	margin-top: 20px;
+}
+
+/* prices */
+.module {
+	position: relative;
+	padding: 64px 0;
+	background-repeat: no-repeat;
+	background-position: 50% 50%;
+	background-size: cover;
+}
+.price-table {
+	background: #fff;
+	border: 1px solid #eaeaea;
+	padding: 25px 20px;
+	margin: 15px 0 30px;
+	border-radius: 2px;
+	text-align: center;
+  }
+  
+  .price-table:hover {
+	border-color: #CACACA;
+  }
+  
+  .price-table.best {
+	margin: 0 0 30px;
+	border: 2px solid #CACACA;
+  }
+  .price-table.best:hover {
+	border-color: #292828;
+
+  }
+  
+  .price-table .small {
+	margin: 0;
+  }
+  .font-alt {
+	font-family: 'Poppins', sans-serif;
+	text-transform: uppercase;
+	letter-spacing: 2px;
+  }
+  .borderline {
+	position: relative;
+	background: #eaeaea;
+	display: block;
+	height: 1px;
+	width: 100%;
+	margin: 20px 0 15px;
+  }
+  
+  .borderline:before {
+	position: absolute;
+	background: #eaeaea;
+	content: "";
+	bottom: -7px;
+	left: 50%;
+	height: 14px;
+	width: 14px;
+	-webkit-transform: rotate(45deg);
+	-moz-transform: rotate(45deg);
+	-ms-transform: rotate(45deg);
+	-o-transform: rotate(45deg);
+	margin-left: -7px;
+  }
+  
+  .borderline:after {
+	position: absolute;
+	background: #fff;
+	content: "";
+	bottom: -5px;
+	left: 50%;
+	height: 16px;
+	width: 16px;
+	-webkit-transform: rotate(45deg);
+	-moz-transform: rotate(45deg);
+	-ms-transform: rotate(45deg);
+	-o-transform: rotate(45deg);
+	margin-left: -8px;
+  }
+  
+  .price-table h4 {
+	color: #111;
+	margin: 0;
+	font-size: 16px;
+  }
+  
+  .price-table p.price {
+	font-size: 60px;
+	color: #111;
+	padding: 0;
+	margin: 0 0 0 -10px;
+  }
+  
+  .price-table p.price span {
+	display: inline-block;
+	vertical-align: top;
+	font-size: 16px;
+	padding-top: 25px;
+  }
+  .price-details {
+	list-style: none;
+	padding: 0;
+	margin: 0 0 23px;
+  }
+  
+  .price-details li {
+	padding: 7px 0;
+  }
+  
+  .price-details li > span {
+	text-decoration: line-through;
+	color: #aaa;
+  }
+  
+  .title-prices{
+	font-size: 45px;
+    font-weight: 700;
+    margin-top: 80px;
+  }
+
 /* @midia */
 @media (max-width:1199px){
-	.banner-case{
-		margin-top: 32px;
+	.btn-banner-case {
+		margin-top: 1.4em;
 	}
 }
 @media (max-width:1080px){
@@ -612,7 +790,7 @@ body a:hover{
 @media (max-width: 991px){
 	.logo h1 a {
 		width: 36%;
-		background: url(../images/img-sp.png) no-repeat 92px 0px;
+		/* background: url(../images/img-sp.png) no-repeat 92px 0px; */
 		padding: 1.7em 0 0;
 		font-size: 1.2em;
 	}
@@ -634,6 +812,13 @@ body a:hover{
 		text-align: center;
 		margin-left: 3%;
 	}
+	/* cases */
+	.background-case{
+		height: 51.5%;
+	}
+	.text-info-case{
+		font-size: 95%;
+	}
 }
 @media (max-width: 800px){
 	.banner_info h3 {
@@ -641,7 +826,7 @@ body a:hover{
 	}
 	.logo h1 a {
 		width: 30%;
-		background: url(../images/img-sp.png) no-repeat 80px 0px;
+		/* background: url(../images/img-sp.png) no-repeat 80px 0px; */
 		background-size: 180%;
 		font-size: 1em;
 	}
@@ -690,9 +875,31 @@ body a:hover{
 		background: #393939;
 		padding: 1em 0;
 	}
-	.background-case{
-		height: 193px;
+	/* cases */
+	.container-case{
+		width: 50%;
+    	margin: 0 auto;
+    	margin-bottom: 16px;
+
 	}
+	.banner-case{
+		width: 50%;
+    	margin: 0 auto;
+	}
+	/* costomers */
+	.client-info h4 {
+		font-size: 30px;
+	}
+	.client-info p {
+		font-size: 16px;
+	}
+	.client-image img {
+		width: 150px;
+	}
+	.client-image h5 {
+		font-size: 27px;
+	}
+
 }
 @media (max-width: 736px){
 	.logo h1 a {
@@ -787,9 +994,7 @@ body a:hover{
 	.title-banner-case > p {
 		font-size: 16px;
 	}
-	.background-case{
-		height: 193px;
-	}
+	
 }
 @media (max-width: 480px){
 	.logo h1 a {
@@ -826,25 +1031,26 @@ body a:hover{
 	.about {
 		padding: 2em 0 3em 0;
 	}
+	/* cases */
 	.icon-banner-case{
-		width: 9em;
-		margin-left: 2.5em;
+		width: 7em;
+		
 	}
 	.container-info-case > span{
-		font-size: 14px;
+		font-size: 75%;
 	}
 	.title-banner-case > p {
-		font-size: 16px;
+		font-size: 90%;
 	}
 	.background-case{
-		height: 193px;
+		height: 51%;
 	}
 }
 @media (max-width: 414px){
 	.logo h1 a {
 		width: 48%;
 		font-size: .8em;
-		background: url(../images/img-sp.png) no-repeat 58px 0px;
+		/* background: url(../images/img-sp.png) no-repeat 58px 0px; */
 		background-size: 200%;
 		padding: 1.8em 0 0;
 	}
@@ -884,6 +1090,28 @@ body a:hover{
 		width: 99%;
 	}
 
+	/*cases*/
+	.container-case{
+		width: 60%;
+	}
+	.banner-case{
+		width: 60%;
+	}
+	/*customers */
+	.clients h3 {
+		font-size: 32px;
+		
+	}
+	.client-info h4 {
+		font-size: 20px;
+
+	}
+	.client-info p {
+
+		font-size: 14px;
+
+	}
+
 }
 @media (max-width: 384px){
 	
@@ -913,6 +1141,8 @@ body a:hover{
 	.about-left-img {
 		min-height: 150px;
 	}
+
+	/*cases */
 }
 @media (max-width: 375px){
 	.logo h1 a {
@@ -959,6 +1189,10 @@ body a:hover{
 		padding: 5px 3px;
 		margin-right: 0px;
 		font-size: 11px;
+	}
+	.container-info-case{
+		margin: 0 auto;
+		margin-left: 8px;
 	}
 }
 @media (max-width: 240px){

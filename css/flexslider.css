@@ -111,6 +111,18 @@ html[xmlns] .slides {display: block;}
 .flex-control-thumbs img {width: 100%; display: block; opacity: .7; cursor: pointer;}
 .flex-control-thumbs img:hover {opacity: 1;}
 .flex-control-thumbs .flex-active {opacity: 1; cursor: default;}
+
+.clients > .slider > .flexslider  > .flex-control-nav{
+	display: none !important;
+}
+.clients .slider .flexslider ol.flex-control-nav {
+	display: none !important;
+}
+
+.clients  .slider .flexslider ul.flex-direction-nav {
+	display: none !important;
+}
+
 @media screen and (max-width:1440px) {
 	
 }
@@ -136,12 +148,12 @@ html[xmlns] .slides {display: block;}
 }
 @media screen and (max-width: 736px) {
 	.flex-control-nav {
-		left: 44%;
+		left: 44.5%;
 	}
 }
 @media screen and (max-width: 640px){
 	.flex-control-nav {
-		left: 42%;
+		left: 43.5%;
 	}
 }
 @media screen and (max-width: 480px) {
@@ -152,22 +164,25 @@ html[xmlns] .slides {display: block;}
 		padding:0;
 	}
 	.flex-control-nav {
-		left: 37.5%;
+		left: 42.5%;
 	}
 }
 @media screen and (max-width: 414px){
 	.flex-control-nav {
-		left: 32.5%;
+		left: 41.5%;
 	}
 }
 @media screen and (max-width: 375px){
 	.flex-control-nav {
-		left: 29.5%;
+		left: 40.5%;
 	}
 }
 @media screen and (max-width: 320px) {
 	section.slider {
 		padding-top: 0%;
+	}
+	.flex-control-nav {
+		left: 36.5%;
 	}
 	
 }
