@@ -24,6 +24,7 @@
     <!-- start-smoth-scrolling -->
     <script type="text/javascript" src="js/move-top.js"></script>
     <script type="text/javascript" src="js/easing.js"></script>
+	<script src="js/bootstrap.js"></script>
     <script type="text/javascript">
 	jQuery(document).ready(function($) {
 		$(".scroll").click(function(event){		
@@ -34,35 +35,34 @@
 </script>
 </head>
 <body>
-    <!-- header -->
-	<div class="top-nav">
-		<div class="container">
-			<nav class="navbar navbar-default">
-				<div class="navbar-header navbar-left">
-					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-navbar-collapse-1">
-						<span class="sr-only">Toggle navigation</span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-					</button>
-				</div>
-				<!-- Collect the nav links, forms, and other content for toggling -->
-				<div class="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
-					<nav class="menu menu--shylock">
-						<ul class="nav navbar-nav link-effect-7" id="link-effect-7">
-							<li><a href="#" data-hover="Início">Início</a></li>
-							<li><a href="#about" data-hover="Sobre Nós">Sobre Nós</a></li>
-							<li><a href="#cases" data-hover="Cases">Cases</a></li>
-							<li><a href="#" data-hover="Planos e Preços">Planos e Preços</a></li>
-							<li><a href="#" data-hover="Contato">Contato</a></li>
-							<li><a href="template_padrao.html" data-hover="Template">Template</a></li>
-						</ul>
-					</nav>
-				</div>
-			</nav>	
-		</div>	
+<!-- header -->
+<div class="top-nav">
+	<div class="container">
+		<nav class="navbar navbar-default">
+			<div class="navbar-header navbar-left">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+			</div>
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
+				<nav class="menu menu--shylock">
+					<ul class="nav navbar-nav link-effect-7" id="link-effect-7">
+						<li ><a href="index.html" data-hover="Início">Início</a></li>
+						<li><a href="#about" data-hover="Sobre Nós">Sobre Nós</a></li>
+						<li><a href="#cases" data-hover="Cases">Cases</a></li>
+						<li><a href="#prices" data-hover="Planos e Preços">Planos e Preços</a></li>
+						<li><a href="template_padrao.html" data-hover="Template">Template</a></li>
+					</ul>
+				</nav>
+			</div>
+		</nav>	
 	</div>	
-<!-- /header -->
+</div>	
+<!-- //header -->
 <!-- banner -->
 	<div class="banner">
 		<div class="container">
@@ -246,15 +246,17 @@
 	</div>
 	<!-- /Why -->
 	<!-- banner 2 -->
-	<div class="row banner-2-container" >
-		<div class="col-md-8 col-sm-8"> 
-			<h3 class="banner-2-text" >Quero melhorar agora mesmo os resultados do meu rebanho!</h3>
-		</div>
-		<div class="col-md-4 col-sm-4 justify-content-center banner_bottom_right">
-			<div class="more">
-				<a href="#" class="button button--nina button--size-s" data-text="Contratar">
-					<span>C</span><span>o</span><span>n</span><span>t</span><span>r</span><span>a</span><span>t</span><span>a</span><span>r</span>
-				</a>
+	<div class="container-fluid">
+		<div class="row banner-2-container" >
+			<div class=" col-sm-8"> 
+				<h3 class="banner-2-text" >Quero melhorar agora mesmo os resultados do meu rebanho!</h3>
+			</div>
+			<div class=" col-sm-4 justify-content-center banner_bottom_right">
+				<div class="more">
+					<a href="#" class="button button--nina button--size-s" data-text="Contratar">
+						<span>C</span><span>o</span><span>n</span><span>t</span><span>r</span><span>a</span><span>t</span><span>a</span><span>r</span>
+					</a>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -418,8 +420,8 @@
 	</div>
 		<!-- /Customers -->
 		<!-- prices -->
-		<h3 class="text-center title-prices">Planos e <span style="color: #449D46;">Preços</span></h3>
-		<div class="module">
+		<h3 id="prices" class="text-center title-prices">Planos e <span style="color: #449D46;">Preços</span></h3>
+		<div class="module" >
 			<div class="container">
 			  <div class="row multi-columns-row">
 				<div class="col-sm-6 col-md-3 col-lg-3">
@@ -499,20 +501,24 @@
 				<div class="col-sm-4">
 				  <div class="widget">
 					<h5 class="widget-title font-alt">Sobre a Seven Noobs</h5>
-					<p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Totam, adipisci!</p>
+					<p>Seven Noobs é a empresa por trás do desenvolvimento do Gado de Ouro. Nasceu quando sete malucos se juntaram e resolveram facilitar a vida dos pecuaristas plantadores de churrasco, por meio da oferta de soluções tecnológicas simples, precisas e seguras. </p>
+					<br>
 					<p>Telefone: (31) 9 9876-5432</p>
+					<br>
 					<p>Email:<a href="#"> email@example.com</a></p>
 				  </div>
 				</div>
 				<div class="col-sm-4">
 				  <div class="widget">
-					<h5 class="widget-title font-alt">Recent Comments</h5>
+					<h5 class="widget-title font-alt">Nosso Time</h5>
 					<ul class="icon-list">
-					  <li>Maria on <a href="#">Designer Desk Essentials</a></li>
-					  <li>John on <a href="#">Realistic Business Card Mockup</a></li>
-					  <li>Andy on <a href="#">Eco bag Mockup</a></li>
-					  <li>Jack on <a href="#">Bottle Mockup</a></li>
-					  <li>Mark on <a href="#">Our trip to the Alps</a></li>
+					  <li>Fábio Henrique: <a href="#">Designer UX</a></li>
+					  <li>Geovanni Cadorin: <a href="#">Analista de Sistemas</a></li>
+					  <li>Mariana Rodrigues: <a href="#">Programador Front-end</a></li>
+					  <li>Markus Antonio: <a href="#">Programador Front-end</a></li>
+					  <li>Tiago Antônio: <a href="#">Gerente de projetos</a></li>
+					  <li>Thiago Augusto <a href="#">Especialista BI</a></li>
+					  <li>Túlio Almeida <a href="#">Gerente de TI</a></li>
 					</ul>
 				  </div>
 				</div>
@@ -520,16 +526,13 @@
 				<div class="col-sm-4">
 				  <div class="widget">
 					<h5 class="widget-title font-alt">Apoio Técnico e Científico</h5>
-					<ul class="widget-posts">
-					  <li class="clearfix">
-						<div class="widget-posts-image"><a href="#"><img src="../images/embrapa.png" /></a></div>
-						
-					  </li>
-					  <li class="clearfix">
-						<div class="widget-posts-image"><a href="#"><img src="../images/puc.png" /></a></div>
-						
-					  </li>
-					</ul>
+					<div class="img-footer-1">
+						<img src="../images/embrapa.png">
+					</div>
+					<div class="img-footer-2">
+						<img src="../images/puc.png" />
+					</div>
+					
 				  </div>
 				</div>
 			  </div>
@@ -551,6 +554,8 @@
 		  </footer>
 		</div>
 		<div class="scroll-up"><a href="#totop"><i class="fa fa-angle-double-up"></i></a></div>
+
+		
 
 		
 </body>

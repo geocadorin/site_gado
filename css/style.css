@@ -797,6 +797,9 @@ body a:hover{
   .widget .icon-list li {
 	padding: 5px 0;
   }
+  .widget .icon-list li {
+	color: #218838;
+  }
   
   .widget .icon-list li a:before {
 	content: "\00BB";
@@ -805,6 +808,7 @@ body a:hover{
   }
   .widget p{
 	  color: whitesmoke;
+	  text-align: justify;
   }
   
   /* Posts */
@@ -834,11 +838,12 @@ body a:hover{
   
   .footer .copyright {
 	margin: 0;
+	color: whitesmoke;
   }
-  .footer .copyright {
-	margin: 0;
+  .footer a {
+	
+	color: goldenrod;
   }
-  
   .footer .footer-social-links {
 	text-align: right;
   }
@@ -847,6 +852,14 @@ body a:hover{
 	display: inline-block;
 	padding: 0 6px;
   }
+  .img-footer-1{
+	  margin-top: 5%;
+	  margin-left: 20%;
+  }
+  .img-footer-2{
+	margin-top: 5%;
+	margin-left: 30%;
+}
   
   /* Scroll to top */
 .scroll-up {
@@ -1020,6 +1033,16 @@ body a:hover{
 	.client-image h5 {
 		font-size: 27px;
 	}
+	/* footer */
+	.img-footer-1{
+		display: inline-block;
+		margin-left: 1%;
+	}
+	.img-footer-2{
+	  display: inline-block;
+	  margin-top: 5%;
+	  margin-left: 15%;
+  }
 
 }
 @media (max-width: 736px){
@@ -1283,6 +1306,17 @@ body a:hover{
 	.nav > li > a {
 		font-size: 14px;
 	}
+	/* footer */
+	.img-footer-1{
+		display: block;
+		margin-top: 8%;
+		margin-left: 20%;
+	}
+	.img-footer-2{
+		display: block;
+		margin-top: 8%;
+		margin-left: 35%;
+  }
 }
 @media (max-width: 320px){
 	.logo h1 a {
