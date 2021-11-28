@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="../../js/system_utilities/buildNavbar.js" type="module"></script>
+    <title>Relatório de Custos</title>
+
+    <style>
+        .navbar .navbar-nav>li>.dropdown-menu>a:hover,
+        .navbar .navbar-nav>li>.dropdown-menu>a:focus {
+            /*background-color: rgba(33, 136, 56, 0.46) !important;*/
+            background-color: rgba(225, 212, 31, .4);
+        }
+        
+        .totalizador-search {
+            float: right;
+            font-size: 14px;
+        }
+        
+        .page-header {
+            border-color: #e7e7e7;
+            margin-top: 3em;
+            margin-bottom: 1.3em;
+        }
+        
+        .btn-delete {
+            margin-left: 1rem;
+        }
+        
+        .form-search {
+            margin-left: 2em;
+            margin-right: 2em;
+        }
+        
+        .spinner {
+            margin-top: 5%;
+            display: none;
+        }
+        
+        .table-response {
+            display: none;
+        }
+        
+        #btn-logout {
+            background-color: goldenrod;
+            color: whitesmoke;
+        }
+        
+        #btn-logout:hover {
+            background-color: #e3ab1f;
+            border-color: goldenrod;
+        }
+        
+        #btn-search {
+            margin-top: 2em;
+        }
+        
+        .td-btn-options {
+            display: none;
+        }
+        /* @midia */
+        
+        @media (max-width: 568px) {
+            .td-btn-options {
+                display: block;
+            }
+            .td-default {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="div-nav"></div>
+    <br>
+    <div class="container">
+        <div class="p-2 float-left">
+            <h3>Relatório de Custos</h3>
+        </div>
+   <br>
+        <table class="table table-hover table-editor table-striped">
+            <thead>
+              <tr>
+                <th style="width: 5%" scope="col">#</th>
+                <th style="width: 25%" scope="col">COMPRA</th>
+                <th style="width: 25%" scope="col">VALOR TOTAL</th>
+                <th style="width: 10%" scope="col">DATA</th>
+                <th style="width: 10%" scope="col"><button type="button" id="botaoCompra" class="btn btn-outline-success" data-toggle="modal" data-target="#modal1">+</button></th>
+              </tr>
+            </thead>
+            <tbody id="tabelaCompra">
+            </tbody>
+          </table>
+          <br>
+          <table class="table table-hover table-editor table-striped">
+            <thead>
+              <tr>
+                <th style="width: 5%" scope="col">#</th>
+                <th style="width: 25%" scope="col">BAIXA</th>
+                <th style="width: 25%" scope="col">VALOR TOTAL</th>
+                <th style="width: 10%" scope="col">DATA</th>
+                <th style="width: 10%" scope="col"><button type="button" id="botaoBaixa" class="btn btn-outline-success" data-toggle="modal" data-target="#modal2">+</button></th>
+              </tr>
+            </thead>
+            <tbody id="tabelaBaixa">
+            </tbody>
+          </table>
+          <br>
+          <table class="table table-hover table-editor table-striped">
+            <thead>
+              <tr>
+                <th style="width: 5%" scope="col">#</th>
+                <th style="width: 25%" scope="col">PERDA</th>
+                <th style="width: 25%" scope="col">VALOR TOTAL</th>
+                <th style="width: 10%" scope="col">DATA</th>
+                <th style="width: 10%" scope="col"><button type="button" id="botaoPerda" class="btn btn-outline-success" data-toggle="modal" data-target="#modal3">+</button></th>
+              </tr>
+            </thead>
+            <tbody id="tabelaPerda">
+            </tbody>
+          </table>
+    </div>
+    <!-- Modal 1 -->
+<div class="modal fade" id="modal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Adicionar nova compra</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-row">
+            <div class="col">
+              <input type="text" class="form-control" placeholder="Compra" id="compraField" maxlength="16">
+            </div>
+            <div class="col">
+              <input type="text" class="form-control" placeholder="Valor" id="valor_compra_Field" maxlength="16">
+            </div>
+            <div class="col">
+              <input type="text" class="form-control" placeholder="Data" id="data_compra_Field">
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary" id="modal-compra">Salvar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--Modal 2-->
+<div class="modal fade" id="modal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Adicionar nova baixa</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-row">
+            <div class="col">
+              <input type="text" class="form-control" placeholder="Baixa" id="baixaField" maxlength="16">
+            </div>
+            <div class="col">
+              <input type="text" class="form-control" placeholder="Valor" id="valor_baixa_Field" maxlength="16">
+            </div>
+            <div class="col">
+              <input type="text" class="form-control" placeholder="Data" id="data_baixa_Field">
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary" id="modal-baixa">Salvar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--Modal 3-->
+<div class="modal fade" id="modal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Adicionar nova perda</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-row">
+            <div class="col">
+              <input type="text" class="form-control" placeholder="Perda" id="perdaField" maxlength="16">
+            </div>
+            <div class="col">
+              <input type="text" class="form-control" placeholder="Valor" id="valor_perda_Field" maxlength="16">
+            </div>
+            <div class="col">
+              <input type="text" class="form-control" placeholder="Data" id="data_perda_Field">
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary" id="modal-perda">Salvar</button>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+<script>
+  function exclui(i) {
+    let element = document.getElementById(`deletar ${i}`);
+    let parent = element.parentNode;
+    let row = parent.parentNode;
+    row.remove();
+  }
+</script>
+<script src="/src/js/controllers/cadastroCustos.js"></script>
+</html>

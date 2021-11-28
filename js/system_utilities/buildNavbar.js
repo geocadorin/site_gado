@@ -20,8 +20,8 @@ function buildNav() {
                         Colaborador\
                     </a>\
                 <div class="dropdown-menu">\
-                    <a class="dropdown-item" href="#">Cadastro</a>\
-                    <a class="dropdown-item" href="#">Busca</a>\
+                    <a class="dropdown-item" href="../colaboradores/cadastro_colaborador.html">Cadastro</a>\
+                    <a class="dropdown-item" href="../colaboradores/busca_colaborador.html">Busca</a>\
                 </div>\
             </li>\
             <li class="nav-item dropdown">\
@@ -49,9 +49,28 @@ function buildNav() {
                         Dieta\
                     </a>\
                 <div class="dropdown-menu">\
-                    <a class="dropdown-item" href="#">Cadastro</a>\
-                    <a class="dropdown-item" href="#">Busca</a>\
+                    <a class="dropdown-item" href="../dieta/CadastroDieta1.html">Cadastro</a>\
+                    <a class="dropdown-item" href="../dieta/buscaDieta.html">Busca</a>\
                     <a class="dropdown-item" href="#">Baixa</a>\
+                </div>\
+            </li>\
+            <li class="nav-item dropdown">\
+                <a class="nav-link dropdown-toggle text-white" href="#" id="navbardrop" data-toggle="dropdown">\
+                        Exemplos\
+                    </a>\
+                <div class="dropdown-menu">\
+                    <a class="dropdown-item" href="../exemplo/cadastro_insumo.html">Cadastro</a>\
+                    <a class="dropdown-item" href="../exemplo/busca_insumo.html"">Busca</a>\
+                    <a class="dropdown-item" href="../exemplo/cadastro_dieta.html"">Cadastrar Dieta</a>\
+                </div>\
+            </li>\
+            <li class="nav-item dropdown">\
+                <a class="nav-link dropdown-toggle text-white" href="#" id="navbardrop" data-toggle="dropdown">\
+                        Relatórios\
+                    </a>\
+                <div class="dropdown-menu">\
+                    <a class="dropdown-item" href="#">Relatório Animal</a>\
+                    <a class="dropdown-item" href="../relatorios/relatorio_de_custos.html">Relatório de Custos</a>\
                 </div>\
             </li>\
          </ul>\
@@ -64,13 +83,11 @@ function buildNav() {
 
 function checkTypeUser() {
     db.transaction(function(tx) {
-        tx.executeSql('SELECT * FROM users WHERE isLogged = 1', [], function(tx, result) {
+        tx.executeSql('SELECT * FROM usuarios WHERE logado = 1', [], function(tx, result) {
             if (result.rows.length > 0) {
-                var tpUser = result.rows[0].typeUser;
-                if (tpUser == 1) {
-                    buildNav();
-                    document.getElementById('btn-logout').addEventListener('click', logout);
-                }
+                //var tpUser = result.rows[0].typeUser;
+                buildNav();
+                document.getElementById('btn-logout').addEventListener('click', logout);
             }
         }, null);
     });
@@ -80,8 +97,8 @@ function logout() {
     // TODO: colocar modal para confirmar a saida
     console.log('deslogou');
     db.transaction(function(tx) {
-        tx.executeSql('UPDATE users SET isLogged=0 WHERE isLogged=1', [], null);
-        window.location.replace("../../login.html");
+        tx.executeSql('UPDATE usuarios SET logado=0 WHERE logado=1', [], null);
+        window.location.replace("../../views/shared/login.html");
     });
 }
 
