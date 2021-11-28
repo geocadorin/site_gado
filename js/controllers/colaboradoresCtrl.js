@@ -7,7 +7,7 @@ window.addEventListener('load', ready);
 
 // CRIA TABELA DE COLABORADOES NO BANCO DE DADOS
 function criarTabelaColaboradores() {
-    var query = "CREATE TABLE IF NOT EXISTS colaboradores ( id TEXT PRIMARY KEY, nome TEXT NOT NULL, idade INTEGER NOT NULL, email TEXT NOT NULL, cargo INTEGER NOT NULL)";
+    var query = "CREATE TABLE IF NOT EXISTS colaboradores ( id TEXT PRIMARY KEY, nome TEXT NOT NULL, idade INTEGER NOT NULL, email TEXT NOT NULL UNIQUE, cargo INTEGER NOT NULL)";
     db.transaction(function(tx) {
         tx.executeSql(query);
     });
