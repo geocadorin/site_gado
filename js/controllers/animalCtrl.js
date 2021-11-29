@@ -198,75 +198,75 @@ function editar(id) {
 }
 
 function baixa(id, tag, peso, idade, raca, page) {
-    debugger
-        (async() => {
 
-            const { value: motivo } = await Swal.fire({
-                title: 'Selecione o motivo da baixa!',
-                input: 'select',
-                inputOptions: {
-                    'Baixa': {
-                        acidente: 'Acidente',
-                        venda: 'Venda',
-                        abate: 'Abate',
-                        outros: 'Outros'
-                    }
-                },
-                inputPlaceholder: 'Selecione o motivo',
-                confirmButtonText: 'Confirmar',
-                showCancelButton: true,
-                cancelButtonText: 'Cancelar',
-                inputValidator: (value) => {
-                    return new Promise((resolve) => {
-                        if (value.length > 0) {
-                            resolve()
-                        } else {
-                            resolve('Você precisa selecionar uma opção')
-                        }
-                    })
+    (async() => {
+
+        const { value: motivo } = await Swal.fire({
+            title: 'Selecione o motivo da baixa!',
+            input: 'select',
+            inputOptions: {
+                'Baixa': {
+                    acidente: 'Acidente',
+                    venda: 'Venda',
+                    abate: 'Abate',
+                    outros: 'Outros'
                 }
-            })
-
-            if (motivo) {
-                db.transaction(function(tx) {
-                    tx.executeSql('INSERT INTO baixaanimal (tag, raca, idade, peso, motivo ) VALUES (?, ?, ?, ?, ?)', [tag, raca, idade, peso, motivo],
-                        //Callback sucesso
-                        function() {
-                            tx.executeSql('DELETE FROM animais WHERE id = ?', [id],
-                                //Callback sucesso
-                                function() {
-
-                                    if (page == 'relatorio') {
-                                        //TODO JOGAR PARA A PAGINA DE BUSCA BAIXAS
-                                        window.location.href = "../animais/cadastro_animal.html";
-                                    } else {
-                                        document.getElementById(id).style.display = 'none';
-                                    }
-
-                                    swal.fire({
-                                        icon: "success",
-                                        title: "Baixa efetuada com sucesso!",
-                                    });
-                                },
-                            );
-                        },
-                        //Callback falha
-                        function(msg, e) {
-                            console.log(msg);
-                            console.log(e);
-
-                            swal.fire({
-                                icon: "error",
-                                title: "Erro em dar baixa"
-                            });
-                        }
-                    );
-                });
-
-
+            },
+            inputPlaceholder: 'Selecione o motivo',
+            confirmButtonText: 'Confirmar',
+            showCancelButton: true,
+            cancelButtonText: 'Cancelar',
+            inputValidator: (value) => {
+                return new Promise((resolve) => {
+                    if (value.length > 0) {
+                        resolve()
+                    } else {
+                        resolve('Você precisa selecionar uma opção')
+                    }
+                })
             }
+        })
 
-        })()
+        if (motivo) {
+            db.transaction(function(tx) {
+                tx.executeSql('INSERT INTO baixaanimal (tag, raca, idade, peso, motivo ) VALUES (?, ?, ?, ?, ?)', [tag, raca, idade, peso, motivo],
+                    //Callback sucesso
+                    function() {
+                        tx.executeSql('DELETE FROM animais WHERE id = ?', [id],
+                            //Callback sucesso
+                            function() {
+
+                                if (page == 'relatorio') {
+                                    //TODO JOGAR PARA A PAGINA DE BUSCA BAIXAS
+                                    window.location.href = "../animais/cadastro_animal.html";
+                                } else {
+                                    document.getElementById(id).style.display = 'none';
+                                }
+
+                                swal.fire({
+                                    icon: "success",
+                                    title: "Baixa efetuada com sucesso!",
+                                });
+                            },
+                        );
+                    },
+                    //Callback falha
+                    function(msg, e) {
+                        console.log(msg);
+                        console.log(e);
+
+                        swal.fire({
+                            icon: "error",
+                            title: "Erro em dar baixa"
+                        });
+                    }
+                );
+            });
+
+
+        }
+
+    })()
 }
 
 function buscarBaixas() {

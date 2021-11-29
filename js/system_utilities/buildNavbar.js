@@ -224,11 +224,6 @@ function buildNav() {
             }
         }, null);
     });
-
-
-
-
-
 }
 
 function checkTypeUser() {
