@@ -73,23 +73,6 @@ function save() {
                         });
                     }
                 );
-                tx.executeSql('UPDATE dietaInsumos SET nomeInsumo=?, qtdInsumos=?, duracao=? WHERE idDieta=?', [nomeInsumo, qtdInsumos, duracao, id],
-                    //*callback sucesso
-                    function() {
-                        swal.fire({
-                            icon: "success",
-                            title: "Insumo alterado com sucesso!",
-                        });
-                    },
-                    //*callback falha
-                    function() {
-                        swal.fire({
-                            icon: "error",
-                            title: "Falha em alterar o insumo.",
-                        });
-                    }
-                );
-
             } else {
                 tx.executeSql('INSERT INTO dietas (id, nome) VALUES (?, ?)', dados,
                     //callback sucesso
@@ -159,6 +142,55 @@ function save() {
 
 function Editar(id) {
     window.location.href = "../dieta/CadastroDieta1.html?" + id;
+}
+
+function popularDados() {
+    //dietas - id varchar,nome varchar
+    // dietaInsumos - idDieta varchar , nomeInsumo varchar, qtdInsumos real, duracao integer
+    //limpa a url 
+    var url = window.location.href.replace(/#/g, '');
+
+    //verifica se a url possui um Id
+    if (url.includes('?') && url.split('?')[1].length == 36) {
+        var id = window.location.href.split('?')[1];
+        db.transaction(function(tx) {
+            tx.executeSql("SELECT * FROM dietas WHERE id = ?", [id],
+                function(_, result) {
+                    var dieta = result.rows[0];
+
+                    //adiciona o valor nos inputs advindos do bdd
+                    document.getElementById('id').value = dieta.id;
+                    document.getElementById('nomedieta').value = dieta.nome;
+
+                    //bloqueia o campo email pois ele não pode ser alterado
+                    document.getElementById('Quantidadeinsumos').readOnly = true;
+                    document.getElementById('botao').style.display = 'none';
+
+                    tx.executeSql('SELECT * FROM dietaInsumos WHERE idDieta = ?', [id],
+                        function(_, resultInsumo) {
+                            var tbody = document.getElementById('tbody-insumos');
+                            var tr = '';
+                            var table = document.getElementById('table-response');
+                            table.style.display = 'block';
+
+                            var insumos = resultInsumo.rows;
+
+                            for (insumo of insumos) {
+                                tr += `<tr id="${insumo.id}">`;
+                                tr += '<td>' + insumo.nomeInsumo + '</td>';
+                                tr += '<td>' + insumo.qtdInsumos + '</td>';
+                                tr += '<td>' + insumo.duracao + '</td>';
+                                tr += '</tr>';
+                            }
+                            document.getElementById('Quantidadeinsumos').value = insumos.length;
+                            tbody.innerHTML = tr;
+                        }
+                    );
+                }
+            );
+        });
+
+    }
 }
 
 function Deletar(id) {
@@ -287,33 +319,6 @@ function search() {
                 tbody.innerHTML = tr;
                 total.innerHTML = dietas.length;
 
-
-
-
-                // for (var i = 0; i < dietas.length; i++) {
-                //     var btns =
-                //         `<td class=" td-default"><a href="#" onclick="Editar('${dietas[i].id}')" class="btn btn-primary btn-sm" title="Editar"><i class="fas fas fa-edit"></i></a>
-                //         <a href="#" onclick="Deletar('${dietas[i].id}')" class="btn btn-danger btn-sm btn-delete" title="Excluir"><i class="fas fa-trash"></i></a></td>
-                //         <td class=" td-btn-options">
-                //             <div class="btn-group">
-                //                 <button type="button" class="btn btn-primary dropdown-toggle btn-sm" data-toggle="dropdown">
-                //                         <i class="fa fa-bars"></i>
-                //                     </button>
-                //                 <div class="dropdown-menu">
-                //                     <a class="dropdown-item" onclick="Editar('${dietas[i].id}')" href="#"><i class="fas fas fa-edit"></i> <span style="padding-left: .2em;">Editar</span> </a>
-                //                     <a class="dropdown-item" onclick="Deletar('${dietas[i].id}')" href="#"><i class="fas fa-trash"></i> <span style="padding-left: .3em;">Excluir</span></a>
-                //                 </div>
-                //             </div>
-                //         </td>`;
-
-                //     tr += `<tr id="${dietas[i].id}">`;
-                //     tr += '<td>' + dietas[i].nome + '</td>';
-                //     tr += btns;
-                //     tr += '</tr>';
-                // }
-
-
-
             },
             function(tx, erro) {
                 console.log("Erro ao fazer select");
@@ -321,21 +326,6 @@ function search() {
             });
     });
 }
-
-
-//selecionar das dietas select dietas na página cadastro animal
-// function getDietas(callback){
-//     db.transaction(function(tx){
-//         tx.executeSql('SELECT id,nome FROM dietas ORDER BY nome',[],
-//         function(tx,resultado){
-//             callback(resultado);
-//         },
-//         function(tx,erro){
-//             console.log("erro ao executar");
-//             console.log(erro);
-//         })
-//     });
-// }
 
 function getInsumos(callback) {
     db.transaction(function(tx) {
@@ -350,48 +340,12 @@ function getInsumos(callback) {
     });
 }
 
-// getInsumos(function(resultado){
-//         debugger
-//         console.log("Chamou getinsumos");
-//         $(resultado.rows).each(function(index,dados){
-//             //console.log(resultado.rows);
-//            // console.log(dados.nome);
-//             let option = document.createElement('option');
-//             option.value = dados.id;
-//             option.innerHTML = dados.name;
-
-
-//             //$('#').append(option); //adicionar objeto ao select
-//         });
-//     });
-
-
-
-
-
-
 function redy() {
     if (document.getElementById('btn-save')) {
-        document.getElementById('btn-save').addEventListener('click', save);
+        //document.getElementById('btn-save').addEventListener('click', save);
+        popularDados();
     }
     if (document.getElementById('btn-search')) document.getElementById('btn-search').addEventListener('click', search);
     criarTabelaDietaseInsumos();
     console.log("Chamou controller");
-
-
-
-    // getDietas(function(resultado){
-    //     debugger
-    //     console.log("Chamou getdietas");
-    //     $(resultado.rows).each(function(index,dados){
-    //         //console.log(resultado.rows);
-    //        // console.log(dados.nome);
-    //         let option = document.createElement('option');
-    //         option.value = dados.id;
-    //         option.innerHTML = dados.nome;
-
-    //         $('#listaDietas').append(option); //adicionar objeto ao select
-    //     });
-    // });
-
 }
