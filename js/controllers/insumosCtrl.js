@@ -17,7 +17,7 @@ function criarTabelaInsumos() {
 //Cria a tabela de baixa de insumos
 function criarTabelaBaixaInsumos() {
     var query =
-        "CREATE TABLE IF NOT EXISTS baixaInsumo (id INTEGER PRIMARY KEY, name TEXT NOT NULL, insumoId INTEGER, qtdSaida REAL NOT NULL, motivo TEXT)";
+        "CREATE TABLE IF NOT EXISTS baixaInsumo (id INTEGER PRIMARY KEY, name TEXT NOT NULL, idInsumo INTEGER, qtdSaida REAL NOT NULL, motivo TEXT)";
     db.transaction(function(tx) {
         tx.executeSql(query);
     });
@@ -47,7 +47,7 @@ function salvarCadastroInsumos() {
     }
 
     if (validacao == true) {
-        debugger
+        debugger;
         db.transaction(function(tx) {
             if (id) {
                 tx.executeSql(
@@ -138,8 +138,8 @@ function confirmarDelete(id) {
             function() {
                 var tdExcluir = document.getElementById(id);
                 tdExcluir.style.display = "none";
-                var total = document.getElementById('total').innerHTML;
-                document.getElementById('total').innerHTML = --total;
+                var total = document.getElementById("total").innerHTML;
+                document.getElementById("total").innerHTML = --total;
                 console.log("Confirmou delete. Id =  " + id);
                 Swal.fire("Deletado!", "Insumo deletado com sucesso!", "success");
             },
@@ -157,14 +157,16 @@ function confirmarDelete(id) {
 function search() {
     var filterName = document.getElementById("name").value;
 
-
     var tbody = document.getElementById("tbody-insumos");
     var total = document.getElementById("total");
     var table = document.getElementById("table-response");
     table.style.display = "block";
 
     var sqlWhere = "WHERE TRUE AND (";
-    sqlWhere += filterName !== null && filterName !== "" ? "name LIKE " + "'%" + filterName + "%'" : "TRUE";
+    sqlWhere +=
+        filterName !== null && filterName !== "" ?
+        "name LIKE " + "'%" + filterName + "%'" :
+        "TRUE";
     sqlWhere += " )";
 
     db.transaction(function(tx) {
@@ -189,13 +191,15 @@ function search() {
                         </div>\
                       </td>`;
 
-                    tr += rows[i].qtd < rows[i].qtdMin ? `<tr class="table-danger" id="${rows[i].id}">` : `<tr id="${rows[i].id}">`;
+                    tr +=
+                        rows[i].qtd < rows[i].qtdMin ?
+                        `<tr class="table-danger" id="${rows[i].id}">` :
+                        `<tr id="${rows[i].id}">`;
                     tr += "<td>" + rows[i].name + "</td>";
                     tr += "<td>" + rows[i].qtd + "</td>";
                     tr += "<td>" + rows[i].qtdMin + "</td>";
                     tr += btns;
                     tr += "</tr>";
-
                 }
                 tbody.innerHTML = tr;
                 total.innerHTML = rows.length;
@@ -207,7 +211,10 @@ function search() {
 function popularDados() {
     var url = window.location.href.replace(/#/g, "");
 
-    if (window.location.href.includes("?") && window.location.href.split("?")[1].length >= 1) {
+    if (
+        window.location.href.includes("?") &&
+        window.location.href.split("?")[1].length >= 1
+    ) {
         var id = window.location.href.split("?")[1];
 
         db.transaction(function(tx) {
@@ -233,9 +240,8 @@ function popularDados() {
 
 function baixa(idInsumo, name, qtd) {
     (async() => {
-
         const { value: formValues } = await Swal.fire({
-            title: 'Baixa Insumo',
+            title: "Baixa Insumo",
             html: `<div class="container-fluid">
           <p style="font-weight: bold;">Os dados com (*) são obrigatórios</p>
           <div class="row">
@@ -259,44 +265,42 @@ function baixa(idInsumo, name, qtd) {
           </div>
       </div>`,
             focusConfirm: false,
-            confirmButtonText: 'Confirmar',
+            confirmButtonText: "Confirmar",
             showCancelButton: true,
-            cancelButtonText: 'Cancelar',
+            cancelButtonText: "Cancelar",
             preConfirm: () => {
                 return [
-                    document.getElementById('qtd').value,
-                    document.getElementById('motivo').value
-                ]
-            }
-        })
+                    document.getElementById("qtd").value,
+                    document.getElementById("motivo").value,
+                ];
+            },
+        });
         if (formValues[0].length >= 1 && formValues[1].length >= 1) {
-
             var qtdUsada = formValues[0];
             var motivo = formValues[1];
-
+            debugger
             if (qtdUsada < qtd) {
-                qtd -= qtdUsada
-                    //id INTEGER PRIMARY KEY, name TEXT NOT NULL, insumoId INTEGER, qtdSaida REAL NOT NULL, motivo TEXT baixaInsumo
-                    //idInsumo, name, qtd
+                qtd -= qtdUsada;
+
                 db.transaction(function(tx) {
-                    tx.executeSql('INSERT INTO baixaInsumo (insumoId, name, qtdSaida, motivo ) VALUES (?, ?, ?, ?)', [idInsumo, name, qtdUsada, motivo],
+                    tx.executeSql(
+                        "INSERT INTO baixaInsumo (idInsumo, name, qtdSaida, motivo ) VALUES (?, ?, ?, ?)", [idInsumo, name, qtdUsada, motivo],
                         //Callback sucesso
                         function() {
-                            tx.executeSql('UPDATE insumos SET qtd=? WHERE id=?', [qtd, idInsumo],
+                            tx.executeSql(
+                                "UPDATE insumos SET qtd=? WHERE id=?", [qtd, idInsumo],
                                 //*callback sucesso
                                 function() {
                                     Swal.fire({
-                                        title: 'Insumo alterado com sucesso!',
+                                        title: "Insumo alterado com sucesso!",
                                         icon: "success",
-
                                     }).then((result) => {
-                                        /* Read more about isConfirmed, isDenied below */
                                         if (result.isConfirmed) {
                                             search();
                                         }
                                     });
                                 }
-                            )
+                            );
                         },
                         //Callback falha
                         function() {
@@ -319,18 +323,62 @@ function baixa(idInsumo, name, qtd) {
                 title: "Preencha os dados obrigatórios!",
             });
         }
+    })();
+}
 
-    })()
+function buscarBaixas() {
+    var filterName = document.getElementById("name").value;
+    var filterMotivo = document.getElementById("motivo").value;
+
+    var tbody = document.getElementById("tbody-insumos");
+    var total = document.getElementById("total");
+    var table = document.getElementById("table-response");
+    table.style.display = "block";
+
+    var sqlWhere = "WHERE TRUE AND (";
+    sqlWhere +=
+        filterName !== null && filterName !== "" ?
+        "name LIKE " + "'%" + filterName + "%'" :
+        "TRUE";
+    sqlWhere += " AND ";
+    sqlWhere +=
+        filterMotivo !== null && filterMotivo !== "" ?
+        "motivo LIKE " + "'%" + filterMotivo + "%'" :
+        "TRUE";
+    sqlWhere += " AND ";
+    sqlWhere += " TRUE )";
+
+    db.transaction(function(tx) {
+        tx.executeSql(
+            "SELECT * FROM baixaInsumo " + sqlWhere, [],
+            function(a, result) {
+                var rows = result.rows;
+                var tr = "";
+
+                for (var i = 0; i < rows.length; i++) {
+                    tr += `<tr id="${rows[i].id}">`;
+                    tr += "<td>" + rows[i].name + "</td>";
+                    tr += "<td>" + rows[i].idInsumo + "</td>";
+                    tr += "<td>" + rows[i].qtdSaida + "</td>";
+                    tr += "<td>" + rows[i].motivo + "</td>";
+                    tr += "</tr>";
+                }
+                tbody.innerHTML = tr;
+                total.innerHTML = rows.length;
+            }
+        );
+    });
 }
 
 function redy() {
-    criarTabelaInsumos();
-    criarTabelaBaixaInsumos();
     if (document.getElementById("btn-save")) {
-        document.getElementById("btn-save").addEventListener("click", salvarCadastroInsumos);
+        document
+            .getElementById("btn-save")
+            .addEventListener("click", salvarCadastroInsumos);
         popularDados();
-    }
-    if (document.getElementById("btn-search")) {
-        document.getElementById("btn-search").addEventListener("click", search);
+    } else if (document.getElementById("btn-search")) {
+        search();
+    } else {
+        buscarBaixas();
     }
 }

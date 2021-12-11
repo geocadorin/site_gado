@@ -3,36 +3,6 @@ var db = openDatabase("dbGado", "1.0", "DB Gado De Ouro", 2 * 1024 * 1024);
 
 window.addEventListener('load', ready);
 
-// Cria a tabela de animais => animais
-function createTableAnimals() {
-    var query = "CREATE TABLE IF NOT EXISTS animais (id INTEGER PRIMARY KEY, tag TEXT NOT NULL, raca TEXT NOT NULL,idade INTEGER NOT NULL,sexo TEXT NOT NULL,peso REAL NOT NULL,nomeDieta TEXT,idDieta TEXT)";
-    db.transaction(function(tx) {
-        tx.executeSql(query);
-    });
-
-}
-
-// Cria a tabela de baixa animal
-function criarTabelaBaixaAnimal() {
-    var query = "CREATE TABLE IF NOT EXISTS baixaanimal (id INTEGER PRIMARY KEY, tag TEXT NOT NULL, raca TEXT NOT NULL,idade INTEGER NOT NULL, peso REAL NOT NULL, motivo TEXT)";
-    db.transaction(function(tx) {
-        tx.executeSql(query);
-    });
-
-}
-
-function criarTabelaPesagemAnimal() {
-    var query = "CREATE TABLE IF NOT EXISTS pesagemanimal (id INTEGER PRIMARY KEY, idAnimal INTEGER, tag TEXT NOT NULL, peso REAL NOT NULL, dtPesagem TEXT )";
-    db.transaction(function(tx) {
-        tx.executeSql(query, [], function() {},
-            function(msg, e) {
-                console.log(e);
-            }
-        );
-    });
-
-}
-
 // Executar função
 function save() {
     var id = document.getElementById('id').value;
@@ -78,7 +48,7 @@ function save() {
     if (validacao == true) {
         db.transaction(function(tx) {
             if (id) {
-                tx.executeSql('UPDATE animais SET idade=? WHERE id=?', [idade, id],
+                tx.executeSql('UPDATE animais SET idade=?, idDieta=? WHERE id=?', [idade, nomeDieta, id],
                     //*callback sucesso
                     function() {
                         swal.fire({
@@ -96,7 +66,7 @@ function save() {
                 )
 
             } else {
-                tx.executeSql('INSERT INTO animais (tag, raca, idade, sexo, peso, nomeDieta) VALUES (?, ?, ?, ?, ?, ?)', [tag, raca, idade, sexo, peso, nomeDieta],
+                tx.executeSql('INSERT INTO animais (tag, raca, idade, sexo, peso, idDieta) VALUES (?, ?, ?, ?, ?, ?)', [tag, raca, idade, sexo, peso, nomeDieta],
                     // Callback sucesso
                     function() {
                         swal.fire({
@@ -237,16 +207,26 @@ function baixa(id, tag, peso, idade, raca, page) {
                             function() {
 
                                 if (page == 'relatorio') {
-                                    //TODO JOGAR PARA A PAGINA DE BUSCA BAIXAS
-                                    window.location.href = "../animais/cadastro_animal.html";
+                                    Swal.fire({
+                                        title: "Baixa efetuada com sucesso!",
+                                        icon: "success",
+                                    }).then((result) => {
+                                        window.location.href = "../animais/baixa_animal.html";
+                                    });
                                 } else {
                                     document.getElementById(id).style.display = 'none';
+                                    Swal.fire({
+                                        title: "Baixa efetuada com sucesso!",
+                                        icon: "success",
+                                    }).then((result) => {
+
+                                        search();
+
+                                    });
                                 }
 
-                                swal.fire({
-                                    icon: "success",
-                                    title: "Baixa efetuada com sucesso!",
-                                });
+
+
                             },
                         );
                     },
@@ -330,6 +310,7 @@ function popularDados() {
                     document.getElementById('peso').value = animal.peso;
                     document.getElementById('raca').value = animal.raca;
                     document.getElementById('sexo').value = animal.sexo;
+                    document.getElementById('nomeDieta').value = animal.idDieta;
 
                     //bloqueia os campos que não podem ser alterados
                     document.getElementById('tag').readOnly = true;
@@ -355,14 +336,21 @@ function popularDadosRelatorio() {
 
                     //adiciona o valor advindos do bdd
                     document.getElementById('tag').innerHTML = "#" + animal.tag;
-                    document.getElementById('idade').innerHTML = "Idade: " + animal.idade;
-                    document.getElementById('peso').innerHTML = "Peso: " + animal.peso;
+                    document.getElementById('idade').innerHTML = "Idade: " + animal.idade + " Meses";
+                    document.getElementById('peso').innerHTML = "Peso: " + animal.peso + " Kg";
                     document.getElementById('raca').innerHTML = "Raça: " + animal.raca;
                     document.getElementById('sexo').innerHTML = "Sexo: " + animal.sexo;
 
 
-                    document.getElementById('btn-baixa').innerHTML = `<button onclick="baixa('${animal.id}', '${animal.tag}', '${animal.peso}', '${animal.idade}', '${animal.raca}', 'relatorio')" type="button" 
-                                                                      class="btn btn-outline-info btn-lg ml-2" id="btn-baixa">Baixa Animais</button>`;
+                    //document.getElementById('btn-baixa').innerHTML = `<button onclick="baixa('${animal.id}', '${animal.tag}', '${animal.peso}', '${animal.idade}', '${animal.raca}', 'relatorio')" type="button" 
+                    //                                                  class="btn btn-outline-primary btn-lg ml-2" id="btn-baixa">Baixa Animais</button>`;
+                    //                                                <button type="button" class="btn btn-outline-primary float-right" id="edit-rel"><i class="fas fas fa-edit"></i></button>
+
+
+
+                    document.getElementById('edit-rel').innerHTML = `<button type="button" class="btn btn-outline-primary float-right" onclick="editar('${animal.id}')"><i class="fas fas fa-edit"></i></button>`;
+                    document.getElementById('container-btn-link').innerHTML = `<button onclick="baixa('${animal.id}', '${animal.tag}', '${animal.peso}', '${animal.idade}', '${animal.raca}', 'relatorio')" type="button" class="btn btn-outline-primary"> <i class="fa-arrow-circle-down fa"></i> Dar Baixa</button>`;
+                    gerarGrafico(id);
                 }
             );
         });
@@ -441,14 +429,105 @@ function pesagem(idAnimal, tag) {
     })()
 }
 
+//selecionar das dietas select dietas na página cadastro animal
+function getDietas(callback) {
+    db.transaction(function(tx) {
+        tx.executeSql('SELECT id,nome FROM dietas ORDER BY nome', [],
+            function(tx, resultado) {
+                callback(resultado);
+            },
+            function(tx, erro) {
+                console.log("erro ao executar");
+                console.log(erro);
+            })
+    });
+}
+
+function gerarGrafico(idAnimal) {
+    //pesagemanimal (id INTEGER PRIMARY KEY, idAnimal INTEGER, tag TEXT NOT NULL, peso REAL NOT NULL, dtPesagem TEXT )"
+    db.transaction(function(tx) {
+        tx.executeSql("SELECT * FROM pesagemanimal WHERE idAnimal = ?", [idAnimal],
+            function(_, result) {
+                if (result.rows.length > 1) {
+                    var xValues = []; //datas
+                    var yValues = []; //pesos
+                    var rows = [];
+
+                    //Converte string para data
+                    for (item of result.rows) {
+                        const date = new Date(item.dtPesagem);
+                        date.setDate(date.getDate() + 1);
+                        rows.push({
+                            'peso': item.peso,
+                            'data': date
+                        });
+                    }
+
+                    //ordenar arr por data
+                    rows.sort(function(a, b) {
+                        return a.data.getTime() - b.data.getTime()
+                    });
+
+
+                    //adiciona os valores no eixo x e y
+                    for (item of rows) {
+                        var dt = `${item.data.getDate()}/${item.data.getMonth()+1}`;
+
+                        xValues.push(dt);
+                        yValues.push(item.peso);
+                    }
+
+                    new Chart("myChart", {
+                        type: "line",
+                        data: {
+                            labels: xValues,
+                            datasets: [{
+                                fill: false,
+                                lineTension: 0,
+                                backgroundColor: "#ffc107",
+                                borderColor: "#269740",
+                                data: yValues
+                            }]
+                        },
+                        options: {
+                            legend: { display: false },
+
+                        }
+                    });
+                } else {
+                    document.getElementById('title').innerHTML = '<h1 class="blockquote text-center">Dados insuficientes para gerar gráfico de peso </h1>';
+                    document.getElementById('myChart').style.height = '0px'
+                }
+
+
+
+            }
+        );
+    });
+
+
+}
+
 function ready() {
-    createTableAnimals();
-    criarTabelaBaixaAnimal();
-    criarTabelaPesagemAnimal();
     if (document.getElementById('btn-save')) {
         document.getElementById('btn-save').addEventListener('click', save);
+        getDietas(function(resultado) {
+            console.log("Chamou getdietas");
+            $(resultado.rows).each(function(index, dados) {
+                let option = document.createElement('option');
+                option.value = dados.id;
+                option.innerHTML = dados.nome;
+                $('#nomeDieta').append(option); //adicionar objeto ao select
+            });
+        });
         popularDados();
     } else if (document.getElementById("relatorio")) {
         popularDadosRelatorio();
+
+    } else if (document.getElementById("btn-search")) {
+        search();
+    } else {
+        buscarBaixas();
     }
+
 }

@@ -5,13 +5,57 @@ window.addEventListener('load', ready);
 
 
 
-// CRIA TABELA DE COLABORADOES NO BANCO DE DADOS
-function criarTabelaColaboradores() {
-    var query = "CREATE TABLE IF NOT EXISTS colaboradores ( id TEXT PRIMARY KEY, nome TEXT NOT NULL, idade INTEGER NOT NULL, email TEXT NOT NULL UNIQUE, cargo INTEGER NOT NULL)";
-    db.transaction(function(tx) {
-        tx.executeSql(query);
-    });
+
+function buscarCEP() {
+
+    var cep = $("[name=CEP]").val().replace(/\D/g, '');
+
+    //Verifica se campo cep possui valor informado.
+    if (cep != "") {
+
+        //Expressão regular para validar o CEP.
+        var validacep = /^[0-9]{8}$/;
+
+        //Valida o formato do CEP.
+        if (validacep.test(cep)) {
+
+
+            //Consulta o webservice viacep.com.br/
+            $.getJSON("https://viacep.com.br/ws/" + cep + "/json/?callback=?", function(dados) {
+
+                if (!("erro" in dados)) {
+                    //Atualiza os campos com os valores da consulta.
+                    $("[name=Logradouro]").val(dados.logradouro);
+                    $("[name=Bairro]").val(dados.bairro);
+                    $("[name=Cidade]").val(dados.localidade);
+                    //$("[name=UF]").val(dados.uf);
+                } //end if.
+                else {
+                    //CEP pesquisado não foi encontrado.
+                    swal.fire({
+                        icon: "error",
+                        title: "CEP não encontrado.",
+                    });
+                    notifica('Cep não encontrado', 'erro');
+                }
+            });
+        } //end if.
+        else {
+            //cep é inválido.
+            //limpa_formulário_cep();
+            swal.fire({
+                icon: "error",
+                title: "CEP inválido.",
+            });
+        }
+    } //end if.
+    else {
+        //cep sem valor, limpa formulário.
+
+    }
+
 }
+
 
 
 function generateUUID() { // Public Domain/MIT
@@ -31,6 +75,8 @@ function generateUUID() { // Public Domain/MIT
 }
 
 
+
+
 //* Salva ou altera os dados do formulário de colaboradores.
 //* Também cria um usuário para o sistema na tabela de usuários.
 function salvar() {
@@ -39,6 +85,12 @@ function salvar() {
     var idade = document.getElementById('idade').value;
     var email = document.getElementById('email').value;
     var cargo = document.getElementById('cargo').value;
+
+    var cep = document.getElementById('cep').value;
+    var cidade = document.getElementById('cidade').value;
+    var bairro = document.getElementById('bairro').value;
+    var logradouro = document.getElementById('logradouro').value;
+    var numero = document.getElementById('numero').value;
 
 
     var validacao = true;
@@ -66,7 +118,7 @@ function salvar() {
     if (validacao == true) {
         db.transaction(function(tx) {
             if (id) {
-                tx.executeSql('UPDATE colaboradores SET nome=?, idade=?, cargo=? WHERE id=?', [nome, idade, cargo, id],
+                tx.executeSql('UPDATE colaboradores SET nome=?, idade=?, cargo=?, cep=?, cidade=?, bairro=?, logradouro=?, numero=? WHERE id=?', [nome, idade, cargo, cep, cidade, bairro, logradouro, numero, id],
                     //*callback sucesso
                     function() {
                         swal.fire({
@@ -85,8 +137,8 @@ function salvar() {
 
             } else {
                 var newId = generateUUID();
-                var arr = [newId, nome, idade, email, cargo];
-                tx.executeSql('INSERT INTO colaboradores (id, nome, idade, email, cargo) VALUES (?, ?, ?, ?, ?); ', arr,
+                var arr = [newId, nome, idade, email, cargo, cep, cidade, bairro, logradouro, numero];
+                tx.executeSql('INSERT INTO colaboradores (id, nome, idade, email, cargo, cep, cidade, bairro, logradouro, numero) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?); ', arr,
                     //* callback sucesso
                     function() {
                         tx.executeSql('INSERT INTO usuarios ( nome, senha, email, tipoUsuario, logado, idColaborador) VALUES (?, "123456", ?, ?, 0, ?)', [nome, email, cargo, newId],
@@ -99,6 +151,12 @@ function salvar() {
                         document.getElementById('idade').value = '';
                         document.getElementById('email').value = '';
                         document.getElementById('cargo').value = '';
+
+                        document.getElementById('cep').value = '';
+                        document.getElementById('cidade').value = '';
+                        document.getElementById('bairro').value = '';
+                        document.getElementById('logradouro').value = '';
+                        document.getElementById('numero').value = '';
 
 
                         //modal para informar o usuario
@@ -268,6 +326,13 @@ function popularDados() {
                     document.getElementById('email').value = colaborador.email;
                     document.getElementById('cargo').value = colaborador.cargo;
 
+                    document.getElementById('cep').value = colaborador.cep;
+                    document.getElementById('cidade').value = colaborador.cidade;
+                    document.getElementById('bairro').value = colaborador.bairro;
+                    document.getElementById('logradouro').value = colaborador.logradouro;
+                    document.getElementById('numero').value = colaborador.numero;
+
+
                     //bloqueia o campo email pois ele não pode ser alterado
                     document.getElementById('email').readOnly = true;
                 }
@@ -283,7 +348,8 @@ function ready() {
         document.getElementById('btn-save').addEventListener('click', salvar);
         popularDados();
     }
-    if (document.getElementById('btn-search')) document.getElementById('btn-search').addEventListener('click', buscar);
-    criarTabelaColaboradores();
-
+    if (document.getElementById('btn-search')) {
+        document.getElementById('btn-search').addEventListener('click', buscar);
+        buscar();
+    }
 }

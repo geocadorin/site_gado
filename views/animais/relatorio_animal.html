@@ -14,8 +14,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
     <script src="../../js/system_utilities/buildNavbar.js" type="module"></script>
     <script src="../../js/controllers/animalCtrl.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <!-- /js -->
     <title>Relatório do Animal</title>
 
@@ -81,16 +84,24 @@
             height: 300px;
             background-color: rgba(218, 165, 32, 0.426)
         }
-        /* @midia */
         
-        @media (max-width: 568px) {
-            .td-btn-options {
-                display: block;
-            }
-            .td-default {
-                display: none;
-            }
+        #myChart {
+            margin: 0 auto;
         }
+        
+        .card-grafico {
+            margin-left: .75em;
+            margin-right: .75em;
+        }
+        
+        .container-btn-link {
+            margin: 0 auto;
+        }
+        
+        .btn-link {
+            margin-right: 1.5em;
+        }
+        /* @midia */
     </style>
 </head>
 
@@ -113,6 +124,7 @@
                         <li id="peso" class="list-group-item">Peso: 420Kg</li>
                         <li id="idade" class="list-group-item">Idade: 16 Meses</li>
                     </ul>
+                    <div id="edit-rel"></div>
                 </div>
             </div>
         </div>
@@ -120,50 +132,28 @@
     <!--/Animal ID & BUttons-->
     <br>
     <!--Grafico-->
-    <h1 class="blockquote text-center">Gráfico Peso x Idade</h1>
-    <div class="container">
-        <div class="jumbotron">
-            <br><br><br>
-            <h1 class="blockquote text-center"> WORK IN PROGRESS... <br><br>
-                <div class="spinner-border text-warning"></div>
-            </h1>
+
+    <div class="containter">
+        <div class="card card-grafico">
+            <div class="card-header" style="background-color: rgba(218, 165, 32, 0.131);width: 100%;">
+                <h1 id="title" class="blockquote text-center">Histórico Pesagens</h1>
+                <canvas id="myChart" style="width:80%;max-width:100%;"></canvas>
+            </div>
         </div>
+
     </div>
     <!--/Grafico-->
     <!--Botões Finais-->
+    <br>
     <div class="contaier">
         <div class="row">
-            <div class="col"><button type="button" class="btn btn-outline-info btn-lg float-right">Relatório Custos</button></div>
-            <div id="btn-baixa" class="col"><button type="button" class="btn btn-outline-info btn-lg ml-2" id="btn-baixa">Baixa Animais</button></div>
+            <div id="container-btn-link" class="container-btn-link">
+
+            </div>
+
         </div>
     </div>
     <!--/Botões Finais-->
     <br>
 
 </body>
-
-<!--Scrip-->
-<script type="text/javascript">
-    function search() {
-        var spinner = document.querySelector("#spinner");
-        var table = document.querySelector("#table-response");
-        var total = document.querySelector("#total");
-        spinner.style.display = 'block';
-        $("#btn-search").prop("disabled", true);
-        $("#btn-search").text("Pesquisando");
-        setTimeout(function() {
-            setDisplay()
-        }, 500);
-    }
-
-    function setDisplay() {
-        var spinner = document.querySelector("#spinner");
-        var table = document.querySelector("#table-response");
-        spinner.style.display = 'none';
-        table.style.display = 'block';
-        $("#total").text("4");
-        $("#btn-search").text("Pesquisar");
-        $("#btn-search").prop("disabled", false);
-
-    }
-</script>

@@ -3,13 +3,87 @@ import { db } from '../system_utilities/db.js'; //* permite acessar o banco de d
 
 window.addEventListener('load', redy);
 
+// function buildNav() {
+//     // TODO: implementar lógica para diferenciar os tipos de usuários.
+//     var divNav = document.getElementById('div-nav');
+//     var nav = '<nav class="navbar navbar-expand-md  navbar-dark" style="background-color:rgb(38 151 64)">\
+//     <a class="navbar-brand" href="#">Gado de <span style="color:\
+//                 goldenrod;">Ouro</span></a>\
+//     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">\
+//             <span class="navbar-toggler-icon"></span>\
+//         </button>\
+//     <div class="collapse navbar-collapse" id="collapsibleNavbar">\
+//         <ul class="navbar-nav">\
+//             <li class="nav-item dropdown">\
+//                 <a class="nav-link dropdown-toggle text-white" href="#" id="navbardrop" data-toggle="dropdown">\
+//                         Colaborador\
+//                     </a>\
+//                 <div class="dropdown-menu">\
+//                     <a class="dropdown-item" href="../colaboradores/cadastro_colaborador.html">Cadastro</a>\
+//                     <a class="dropdown-item" href="../colaboradores/busca_colaborador.html">Busca</a>\
+//                 </div>\
+//             </li>\
+//             <li class="nav-item dropdown">\
+//                 <a class="nav-link dropdown-toggle text-white" href="#" id="navbardrop" data-toggle="dropdown">\
+//                         Insumos\
+//                     </a>\
+//                 <div class="dropdown-menu">\
+//                     <a class="dropdown-item" href="../insumos/cadastro_insumos.html">Cadastro</a>\
+//                     <a class="dropdown-item" href="../insumos/buscainsumos.html">Busca</a>\
+//                     <a class="dropdown-item" href="../insumos/baixa_insumos.html">Baixa</a>\
+//                 </div>\
+//             </li>\
+//             <li class="nav-item dropdown">\
+//                 <a class="nav-link dropdown-toggle text-white" href="#" id="navbardrop" data-toggle="dropdown">\
+//                         Animal\
+//                     </a>\
+//                 <div class="dropdown-menu">\
+//                     <a class="dropdown-item" href="../animais/cadastro_animal.html">Cadastro</a>\
+//                     <a class="dropdown-item" href="../animais/busca_animal.html">Busca</a>\
+//                     <a class="dropdown-item" href="../animais/baixa_animal.html">Baixa</a>\
+//                 </div>\
+//             </li>\
+//             <li class="nav-item dropdown">\
+//                 <a class="nav-link dropdown-toggle text-white" href="#" id="navbardrop" data-toggle="dropdown">\
+//                         Dieta\
+//                     </a>\
+//                 <div class="dropdown-menu">\
+//                     <a class="dropdown-item" href="../dieta/CadastroDieta1.html">Cadastro</a>\
+//                     <a class="dropdown-item" href="../dieta/buscaDieta.html">Busca</a>\
+//                 </div>\
+//             </li>\
+//             <li class="nav-item dropdown">\
+//                 <a class="nav-link dropdown-toggle text-white" href="#" id="navbardrop" data-toggle="dropdown">\
+//                         Exemplos\
+//                     </a>\
+//                 <div class="dropdown-menu">\
+//                     <a class="dropdown-item" href="../exemplo/cadastro_insumo.html">Cadastro</a>\
+//                     <a class="dropdown-item" href="../exemplo/busca_insumo.html"">Busca</a>\
+//                     <a class="dropdown-item" href="../exemplo/cadastro_dieta.html"">Cadastrar Dieta</a>\
+//                 </div>\
+//             </li>\
+//             <li class="nav-item dropdown">\
+//                 <a class="nav-link dropdown-toggle text-white" href="#" id="navbardrop" data-toggle="dropdown">\
+//                         Relatórios\
+//                     </a>\
+//                 <div class="dropdown-menu">\
+//                     <a class="dropdown-item" href="../animais/relatorio_animal.html">Relatório Animal</a>\
+//                     <a class="dropdown-item" href="../relatorios/relatorio_de_custos.html">Relatório de Custos</a>\
+//                 </div>\
+//             </li>\
+//          </ul>\
+//          <button class="btn my-2 my-sm-0 ml-auto" id="btn-logout" type="button"> <i class="fa fa-share" aria-hidden="true" ></i> Logout</button>\
+//         </div>\
+//     </nav>';
+//     divNav.innerHTML = nav;
 
+// }
 
 
 function buildNavProprietario() {
     var nav = '';
     nav = '<nav class="navbar navbar-expand-md  navbar-dark" style="background-color:rgb(38 151 64)">\
-    <a class="navbar-brand" href="#">Gado de <span style="color:\
+    <a class="navbar-brand" href="../shared/workspage.html">Gado de <span style="color:\
                 goldenrod;">Ouro</span></a>\
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">\
             <span class="navbar-toggler-icon"></span>\
@@ -30,9 +104,9 @@ function buildNavProprietario() {
                         Insumos\
                     </a>\
                 <div class="dropdown-menu">\
-                    <a class="dropdown-item" href="#">Cadastro</a>\
-                    <a class="dropdown-item" href="#">Busca</a>\
-                    <a class="dropdown-item" href="#">Baixa</a>\
+                    <a class="dropdown-item" href="../insumos/cadastro_insumos.html">Cadastro</a>\
+                    <a class="dropdown-item" href="../insumos/buscainsumos.html">Busca</a>\
+                    <a class="dropdown-item" href="../insumos/baixa_insumos.html">Busca Baixa</a>\
                 </div>\
             </li>\
             <li class="nav-item dropdown">\
@@ -40,9 +114,9 @@ function buildNavProprietario() {
                         Animal\
                     </a>\
                 <div class="dropdown-menu">\
-                    <a class="dropdown-item" href="#">Cadastro</a>\
-                    <a class="dropdown-item" href="#">Busca</a>\
-                    <a class="dropdown-item" href="#">Baixa</a>\
+                    <a class="dropdown-item" href="../animais/cadastro_animal.html">Cadastro</a>\
+                    <a class="dropdown-item" href="../animais/busca_animal.html">Busca</a>\
+                    <a class="dropdown-item" href="../animais/baixa_animal.html">Busca Baixa</a>\
                 </div>\
             </li>\
             <li class="nav-item dropdown">\
@@ -52,28 +126,17 @@ function buildNavProprietario() {
                 <div class="dropdown-menu">\
                     <a class="dropdown-item" href="../dieta/CadastroDieta1.html">Cadastro</a>\
                     <a class="dropdown-item" href="../dieta/buscaDieta.html">Busca</a>\
-                    <a class="dropdown-item" href="#">Baixa</a>\
                 </div>\
             </li>\
             <li class="nav-item dropdown">\
                 <a class="nav-link dropdown-toggle text-white" href="#" id="navbardrop" data-toggle="dropdown">\
-                        Exemplos\
-                    </a>\
+                    Compras\
+                </a>\
                 <div class="dropdown-menu">\
-                    <a class="dropdown-item" href="../exemplo/cadastro_insumo.html">Cadastro</a>\
-                    <a class="dropdown-item" href="../exemplo/busca_insumo.html"">Busca</a>\
-                    <a class="dropdown-item" href="../exemplo/cadastro_dieta.html"">Cadastrar Dieta</a>\
-                </div>\
-            </li>\
-            <li class="nav-item dropdown">\
-                <a class="nav-link dropdown-toggle text-white" href="#" id="navbardrop" data-toggle="dropdown">\
-                        Relatórios\
-                    </a>\
-                <div class="dropdown-menu">\
-                    <a class="dropdown-item" href="#">Relatório Animal</a>\
-                    <a class="dropdown-item" href="../relatorios/relatorio_de_custos.html">Relatório de Custos</a>\
-                </div>\
-            </li>\
+                    <a class="dropdown-item" href="../compras/cadastro_compras.html">Cadastro</a>\
+                    <a class="dropdown-item" href="../compras/busca_compras.html">Busca</a>\
+            </div>\
+        </li>\
          </ul>\
          <button class="btn my-2 my-sm-0 ml-auto" id="btn-logout" type="button"> <i class="fa fa-share" aria-hidden="true" ></i> Logout</button>\
         </div>\
@@ -85,21 +148,21 @@ function buildNavVet() {
 
     var nav = '';
     nav = '<nav class="navbar navbar-expand-md  navbar-dark" style="background-color:rgb(38 151 64)">\
-    <a class="navbar-brand" href="#">Gado de <span style="color:\
+    <a class="navbar-brand" href="../shared/workspage.html">Gado de <span style="color:\
                 goldenrod;">Ouro</span></a>\
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">\
-            <span class="navbar-toggler-icon"></span>\
-        </button>\
-    <div class="collapse navbar-collapse" id="collapsibleNavbar">\
-        <ul class="navbar-nav">\
-            <li class="nav-item dropdown">\
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">\
+                    <span class="navbar-toggler-icon"></span>\
+                </button>\
+            <div class="collapse navbar-collapse" id="collapsibleNavbar">\
+                <ul class="navbar-nav">\
+                <li class="nav-item dropdown">\
                 <a class="nav-link dropdown-toggle text-white" href="#" id="navbardrop" data-toggle="dropdown">\
                         Insumos\
-                </a>\
+                    </a>\
                 <div class="dropdown-menu">\
-                    <a class="dropdown-item" href="#">Cadastro</a>\
-                    <a class="dropdown-item" href="#">Busca</a>\
-                    <a class="dropdown-item" href="#">Baixa</a>\
+                    <a class="dropdown-item" href="../insumos/cadastro_insumos.html">Cadastro</a>\
+                    <a class="dropdown-item" href="../insumos/buscainsumos.html">Busca</a>\
+                    <a class="dropdown-item" href="#">Busca Baixa</a>\
                 </div>\
             </li>\
             <li class="nav-item dropdown">\
@@ -107,9 +170,9 @@ function buildNavVet() {
                         Animal\
                     </a>\
                 <div class="dropdown-menu">\
-                    <a class="dropdown-item" href="#">Cadastro</a>\
-                    <a class="dropdown-item" href="#">Busca</a>\
-                    <a class="dropdown-item" href="#">Baixa</a>\
+                    <a class="dropdown-item" href="../animais/cadastro_animal.html">Cadastro</a>\
+                    <a class="dropdown-item" href="../animais/busca_animal.html">Busca</a>\
+                    <a class="dropdown-item" href="../animais/baixa_animal.html">Busca Baixa</a>\
                 </div>\
             </li>\
             <li class="nav-item dropdown">\
@@ -119,26 +182,6 @@ function buildNavVet() {
                 <div class="dropdown-menu">\
                     <a class="dropdown-item" href="../dieta/CadastroDieta1.html">Cadastro</a>\
                     <a class="dropdown-item" href="../dieta/buscaDieta.html">Busca</a>\
-                    <a class="dropdown-item" href="#">Baixa</a>\
-                </div>\
-            </li>\
-            <li class="nav-item dropdown">\
-                <a class="nav-link dropdown-toggle text-white" href="#" id="navbardrop" data-toggle="dropdown">\
-                        Exemplos\
-                    </a>\
-                <div class="dropdown-menu">\
-                    <a class="dropdown-item" href="../exemplo/cadastro_insumo.html">Cadastro</a>\
-                    <a class="dropdown-item" href="../exemplo/busca_insumo.html"">Busca</a>\
-                    <a class="dropdown-item" href="../exemplo/cadastro_dieta.html"">Cadastrar Dieta</a>\
-                </div>\
-            </li>\
-            <li class="nav-item dropdown">\
-                <a class="nav-link dropdown-toggle text-white" href="#" id="navbardrop" data-toggle="dropdown">\
-                        Relatórios\
-                    </a>\
-                <div class="dropdown-menu">\
-                    <a class="dropdown-item" href="#">Relatório Animal</a>\
-                    <a class="dropdown-item" href="../relatorios/relatorio_de_custos.html">Relatório de Custos</a>\
                 </div>\
             </li>\
          </ul>\
@@ -151,7 +194,7 @@ function buildNavVet() {
 function buildNavOperador() {
     var nav = '';
     nav = '<nav class="navbar navbar-expand-md  navbar-dark" style="background-color:rgb(38 151 64)">\
-    <a class="navbar-brand" href="#">Gado de <span style="color:\
+    <a class="navbar-brand "href="../shared/workspage.html">Gado de <span style="color:\
                 goldenrod;">Ouro</span></a>\
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">\
             <span class="navbar-toggler-icon"></span>\
@@ -163,8 +206,8 @@ function buildNavOperador() {
                         Insumos\
                 </a>\
                 <div class="dropdown-menu">\
-                    <a class="dropdown-item" href="#">Busca</a>\
-                    <a class="dropdown-item" href="#">Baixa</a>\
+                <a class="dropdown-item" href="../insumos/cadastro_insumos.html">Cadastro</a>\
+                <a class="dropdown-item" href="../insumos/buscainsumos.html">Busca</a>\
                 </div>\
             </li>\
             <li class="nav-item dropdown">\
@@ -172,8 +215,9 @@ function buildNavOperador() {
                         Animal\
                     </a>\
                 <div class="dropdown-menu">\
-                    <a class="dropdown-item" href="#">Cadastro</a>\
-                    <a class="dropdown-item" href="#">Busca</a>\
+                <a class="dropdown-item" href="../animais/cadastro_animal.html">Cadastro</a>\
+                <a class="dropdown-item" href="../animais/busca_animal.html">Busca</a>\
+                <a class="dropdown-item" href="../animais/baixa_animal.html">Busca Baixa</a>\
                 </div>\
             </li>\
             <li class="nav-item dropdown">\
